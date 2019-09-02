@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Input } from 'antd';
 import DetailForm from 'components/DetailForm/DetailForm';
 import _ from 'lodash';
-//import * as moment from 'moment';
+import * as moment from 'moment';
 
 let idx = 1;
 export default class MasterForm extends React.Component {
@@ -82,7 +82,7 @@ export default class MasterForm extends React.Component {
       this.setState({ open: false, status: null });
     }
 
-    handleOK = (row) => {
+    handleOK = async(row) => {
         var data = this.state.data;
         if (this.state.status === 'add') {
           row["id"] = (idx++).toString();
@@ -98,7 +98,18 @@ export default class MasterForm extends React.Component {
         //console.log('parent node');
     }
 
-    renderUI = (self) =>{
+    renderUI = () =>{
+      //find datepicker column and set default render UI
+      this.columns.filter(r=>r.type && r.type ==="date").map(row=>{
+        if(!row.render){
+          row['render'] = (text, record) => <div>{moment(record[row.key]).toISOString(true)}</div>
+        }
+      });
+      this.columns.filter(r=>r.type && (r.type ==="switch" || r.type ==="checkbox")).map(row=>{
+        if(!row.render){
+          row['render'] = (text, record) => <div>{record[row.key]? record[row.key].toString().toUpperCase(): "False"}</div>
+        }
+      });
       return(
         // <div>
         // <Table columns={self.columns} dataSource={self.state.data} />

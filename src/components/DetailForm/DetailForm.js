@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 //import { upStreams } from 'services/API';
-import { Form , Modal, Divider, Tag, Button, Badge, Icon, Card, Spin, Input, Select, Table, Row, Col  } from 'antd';
+import { Form , Modal, Divider, Tag, Button, Badge, Icon, Card, Spin, Input, Select, Table, Row, Col, DatePicker, Switch } from 'antd';
 //import * as moment from 'moment';
 import _ from 'lodash';
 //import { map, tail, times, uniq } from 'lodash';
@@ -68,13 +68,13 @@ class DetailForm extends React.Component{
     if(this.props.handleClose){
       this.props.handleClose();
     }
-    setTimeout(() => {
-      this.setState({ open: this.state.open, status: null, loading: false });
-    }, 3000);
+    //setTimeout(() => {
+    this.setState({ open: this.state.open, status: null, loading: false });
+    //}, 3000);
     this.clearForm();
   };
 
-  handleOK = () => {
+  handleOK = async() => {
     this.setState({ loading: true });
     let isValidate = this.isAllColumnValidate();
     if (isValidate != null) {
@@ -83,7 +83,7 @@ class DetailForm extends React.Component{
       return;
     }
     if (typeof this.props.handleOK === 'function' && this.state.status !== "read") {
-      this.props.handleOK(_.cloneDeep(this.state.editform));
+      await this.props.handleOK(_.cloneDeep(this.state.editform));
     }
     this.handleClose();
   };
@@ -127,6 +127,17 @@ class DetailForm extends React.Component{
     //update
     var frm = this.state.editform;
     frm[name] = event.target ?event.target.value : event;
+    this.setState({
+      editform: frm
+    });
+  };
+
+  handleDatePickerEvent = name =>(date, dateString) => {
+    //validate
+    //var res = this.validate(name, event.target.value);
+    //update
+    var frm = this.state.editform;
+    frm[name] = date;
     this.setState({
       editform: frm
     });
@@ -179,22 +190,40 @@ isRequired = (attrs) =>{
   return false;
 }
 
+setType_FieldDecorator = (type, config) =>{
+  if(!type){
+    return config;
+  }
+  switch(type){
+    case "date":
+        config.rules[0]['type'] = 'object';
+      break;
+    case "switch":
+        config.rules[0]['type'] = 'boolean';
+      break;
+  }
+  return config;
+}
+
 setInput = (getFieldDecorator, row, editform, isRequired, index, ob ) =>{
+  let config = { initialValue : editform[row.field], rules: [{ ...row.validate , message: 'Please input your '+ row.title +'!' }]};
+  //set getFieldDecorator #rule validate type
+  // if(row.type && row.type ==="date"){
+  //   config.rules[0]['type'] = 'object';
+  // }
+  config = this.setType_FieldDecorator(row.type, config);
+  
   if(isRequired){
     return(
       <Form.Item label={row.title} hasFeedback key={'item-'+index}>
-        {getFieldDecorator(row.field, { initialValue : editform[row.field],
-          rules: [{ ...row.validate , message: 'Please input your '+ row.title +'!' }],
-        })(ob)}
+        {getFieldDecorator(row.field, config)(ob)}
       </Form.Item>
     )
   }
   else{
     return(
       <Form.Item label={row.title} key={'item-'+index}>
-        {getFieldDecorator(row.field, { initialValue : editform[row.field],
-          rules: [{ ...row.validate , message: 'Please input your '+ row.title +'!' }],
-        })(ob)}
+        {getFieldDecorator(row.field, config)(ob)}
       </Form.Item>
     )
   }
@@ -221,10 +250,13 @@ setValidator = (row) =>{
 }
 
 getInputType = (row , i, getFieldDecorator) =>{
+  //check if read-only
+  //Append Custom Attributes
   let customAttr = {disabled: this.state.status === "read"};
   if(row.attributes){
     customAttr = Object.assign({}, customAttr, row.attributes);
   }
+
   let type = this.getType(row);
   //set validator/ custom
   //row = this.setValidator(row);
@@ -257,11 +289,19 @@ getInputType = (row , i, getFieldDecorator) =>{
         (<Switch checked = {this.state.editform[row.field]} onChange={this.handleInputEvent(row.field)} {...customAttr} key={'switch-'+i}/>))
       }
     case "date":
-      return(
-        <div>
-          Not Implemented yet!!!
-        </div>
-      )
+      // return(
+      //   <div>
+      //     Not Implemented yet!!!
+      //   </div>
+      // )
+      if(row.editRender){
+        let ob = row.editRender(this.state.editform, this.handleDatePickerEvent(row.field), customAttr);
+        return this.setInput(getFieldDecorator, row, this.state.editform, this.isRequired(row.validate), i, ob)
+      }
+      else{
+        return this.setInput(getFieldDecorator, row, this.state.editform, this.isRequired(row.validate), i, 
+        (<DatePicker onChange={this.handleDatePickerEvent(row.field)} {...customAttr} key={'date-'+i}/>))
+      }
     default :
       if(row.editRender){
         let ob = row.editRender(this.state.editform, this.handleInputEvent(row.field), customAttr);

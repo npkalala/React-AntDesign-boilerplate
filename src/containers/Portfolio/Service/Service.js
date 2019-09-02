@@ -1,14 +1,14 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { queryService } from 'services/API';
-import { Table, Tag, Button, Icon, Card, Input, Row, Col } from 'antd';
+import { Tag, Button, Icon, Card, Input, Row, Col, Radio } from 'antd';
 import * as moment from 'moment';
 import MasterForm from 'components/DetailForm/MasterForm';
 let data = [];
 
 @inject('translateStore')
 @observer
-export default class Service extends MasterForm { //React.Component { //MasterForm { 
+export default class Service extends MasterForm { 
     constructor(props) {
         super(props);
         this.columns = [
@@ -29,21 +29,34 @@ export default class Service extends MasterForm { //React.Component { //MasterFo
             title: 'HOST',
             dataIndex: 'host',
             key: 'host',
+            type : 'switch',
+            render: (text, record) => <div>{record["host"]!==undefined ? record["host"].toString() : ""}</div>
           },
           {
             title: 'TAGS',
             dataIndex: 'tags',
             key: 'tags',
-            dataset : [{value:"A", key:"10000"},{value:"B", key:"20000"}],
-            default : "A"
+            //dataset : [{value:"A", key:"10000"},{value:"B", key:"20000"}],
+            //type : "select",
+            //default : "A",
             //validate : {required : true}
+            editRender : (record, handleInputEvent, customAttr) =>{
+              return(
+              <Radio.Group onChange={handleInputEvent} {...customAttr}>
+                  <Radio.Button value={"A"}>10000</Radio.Button>
+                  <Radio.Button value={"B"}>20000</Radio.Button>
+              </Radio.Group>
+              )
+            }
           },
           {
             title: 'CREATED',
             dataIndex: 'created_at',
             key: 'created_at',
-            default: moment(Date.now()).toISOString(true),
-            attributes : {disabled : true}
+            type : "date",
+            default: moment(Date.now()),
+            render: (text , record, index) => <div key={"Created-"+ index}>{moment(record.created_at).format('YYYY/MM/DD HH:mm:ss')}</div>
+            //attributes : {disabled : true}
           },
           {
             title: '',
@@ -66,7 +79,7 @@ export default class Service extends MasterForm { //React.Component { //MasterFo
     componentDidMount = async () => {
         let dtAll = await queryService();
         dtAll.data.data.map((row)=>{
-            row.created_at = moment(row.create_at).toISOString(true);
+            row.created_at = moment(row.create_at);//.toISOString(true);
         });
         data = dtAll.data.data;
         this.setState({data : data});
@@ -78,10 +91,14 @@ export default class Service extends MasterForm { //React.Component { //MasterFo
         this.setState({data : dt});
     }
 
-    // handleOK = (row) =>{
-    //   console.log('child node');
-    //   super.handleOK(row);
-    // }
+    handleOK = (row) =>{
+       if(this.state.status === "add"){
+         //Call Add(http POST) API
+       }
+       else{ //Update
+         //Call Update(http PUT) API 
+       }
+    }
 
     render() {
     //const { translateObj } = this.props.translateStore;
