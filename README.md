@@ -98,7 +98,7 @@ export default class Service extends MasterForm {
 
 ### Open the edit-form with Create/Edit/ReadOnly Mode
 - Create Mode
-#### Call the basic function in MasterForm named <font color=red>this.addrow</font>
+#### Call the basic function in MasterForm named <font color="red">this.addrow</font>
 ```js
 render() {
     const { Search } = Input;
