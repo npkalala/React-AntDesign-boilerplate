@@ -224,7 +224,7 @@ P.s Remember to bind the onChange event "handleInputEvent" for model validation.
 ## Callback event to do CRUD operation with RESTful API
 
 ### Query
-. 
+Get the data from API or local and update the state.data with it.
 ```js
 	queryData = (value) =>{
 	    //Call Query(Http Get) API 
