@@ -119,7 +119,7 @@ render() {
       </div>
     );
 ```
-![Create](Doc/p5.png )
+![Create](doc/p5.png )
 
 - Edit Mode
 #### Call the basic function in MasterForm named <font color=red>this.updaterow when you declare the column schema in constructor</font>
@@ -134,7 +134,7 @@ this.columns = [
             render: (text, record) => <a onClick={()=> this.updaterow(record)}>{text}</a>,
           },
 ```
-![Edit](Doc/p4.png )
+![Edit](doc/p4.png )
 
 - ReadOnly Mode
 #### Call the basic function in MasterForm named <font color=red>this.readrow when you declare the column schema in constructor</font>
@@ -147,7 +147,7 @@ this.columns = [
               render: (text, record) =><Icon type="eye" onClick={()=> this.readrow(record)}/>
           },
 ```
-![ReadOnly](Doc/p6.png )
+![ReadOnly](doc/p6.png )
 
 ## Attributes
 The description of the Attributes.
@@ -176,7 +176,7 @@ this.columns = [
             type : "select",
           },
 ```
-![select](Doc/p7.png )
+![select](doc/p7.png )
 
 #### Model Validation
 ```js
@@ -188,7 +188,7 @@ this.columns = [
             validate : {required : true , max : 20}
           },
 ```
-![select](Doc/p8.png )		  
+![select](doc/p8.png )		  
 
 #### Custom edit-form item style
 ```js
@@ -208,7 +208,7 @@ this.columns = [
           },
 ```
 P.s Remember to bind the onChange event "handleInputEvent" for model validation.
-![select](Doc/p9.png )	
+![select](doc/p9.png )	
 	  
 ##Callback event to do CRUD operation with RESTful API
 
