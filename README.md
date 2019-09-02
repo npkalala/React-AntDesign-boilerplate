@@ -96,7 +96,18 @@ export default class Service extends MasterForm {
 }
 ```
 
-### Open the edit-form with Create/Edit/ReadOnly Mode
+### Include the Table(AntDesign) to html
+Put the renderUI() function to wherever you want.
+```js
+render() {
+    return (
+      <div>
+        {this.renderUI()}
+      </div>
+    );
+``` 
+
+### How to open the edit-form with Create/Edit/ReadOnly Mode
 - Create Mode
 #### Call the basic function in MasterForm named <font color="red">this.addrow</font>
 ```js
@@ -210,7 +221,7 @@ this.columns = [
 P.s Remember to bind the onChange event "handleInputEvent" for model validation.
 ![select](doc/p9.png )	
 	  
-##Callback event to do CRUD operation with RESTful API
+## Callback event to do CRUD operation with RESTful API
 
 ### Query
 . 
