@@ -102,6 +102,10 @@ Put the renderUI() function to wherever you want.
 render() {
     return (
       <div>
+	    <Card bordered={false} bodyStyle={{backgroundColor: 'rgba(228, 233, 237, 1)', border: 0 }}>
+            <h1>Services</h1>
+            <p>Show the services infomation</p>
+        </Card>
         {this.renderUI()}
       </div>
     );
@@ -115,7 +119,6 @@ render() {
     const { Search } = Input;
     return (
       <div>
-        <br/>
         <div>
           <Row>
             <Col span={16}>

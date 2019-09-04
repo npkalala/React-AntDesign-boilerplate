@@ -8,9 +8,9 @@ let idx = 1;
 export default class MasterForm extends React.Component {
     constructor(props) {
        super(props);
-       this.updaterow = this.updaterow.bind(this);
-       this.deleterow = this.deleterow.bind(this);
-       this.readrow = this.readrow.bind(this);
+       this.updateRow = this.updateRow.bind(this);
+       this.deleteRow = this.deleteRow.bind(this);
+       this.readRow = this.readRow.bind(this);
        this.columns = [];
     }
 
@@ -56,22 +56,22 @@ export default class MasterForm extends React.Component {
       return ob;
     }
 
-    addrow = () => {
+    addRow = () => {
       this.state.editform = this.newRow(this.state.columns);
       this.setState({ open: true, status: 'add', editform: this.state.editform });
     };
 
-    updaterow = (row) => {
+    updateRow = (row) => {
       this.state.editform = _.cloneDeep(row);
       this.setState({ open: true, status: 'update', editform: this.state.editform })
     };
 
-    readrow = (row) => {
+    readRow = (row) => {
       this.state.editform = row; //_.cloneDeep(row);
       this.setState({ open: true, status: 'read', editform: this.state.editform })
     };
 
-    deleterow = (row) =>{
+    deleteRow = (row) =>{
       let data = this.state.data;
       const index = data.indexOf(row);
       data.splice(index, 1);

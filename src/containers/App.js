@@ -79,16 +79,8 @@ export default class App extends React.Component {
           <Styles.MenuContent>
             <Switch>
               <Route default path="/app/about" component={LoadableAboutMe} />
-              <Route path="/app/portfolio" component={LoadablePortfolio} />
-              <Route path="/app/badge" component={LoadableBadge} />
-              <Route path="/app/card" component={LoadableCard} />
-              <Route path="/app/ringchart" component={LoadableRing} />
-              <Route path="/app/mixchart" component={LoadableMixChart} />
               <Route path="/app/upstream" component={LoadableUpStream} />
               <Route path="/app/services" component={LoadableService} />
-              <Route path="/app/consumers" component={LoadableConsumers} />
-              <Route path="/app/certificates" component={LoadableCertificates} />
-              <Route path="/app/routes" component={LoadableRoutes} />
             </Switch>
           </Styles.MenuContent>
         </Layout>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 //import jason from 'images/blackman.png';
-import dashboard from 'images/dashboard.png';
+//import dashboard from 'images/dashboard.png';
 import Card from 'components/Card/Card';
 import CardTitle from 'components/CardTitle/CardTitle';
 import * as Styles from './style';
@@ -51,8 +51,8 @@ export default class About extends React.Component {
     const { translateObj } = this.props.translateStore;
     return (
       <div>
-        {/* <Styles.HeaderContainer>
-          <Styles.Photo src={jason} />
+        <Styles.HeaderContainer>
+          {/* <Styles.Photo src={jason} /> */}
           <Styles.Description>
             {translateObj.DESCRIPTION}
           </Styles.Description>
@@ -77,8 +77,8 @@ export default class About extends React.Component {
           <CardTitle title={translateObj.CONTACT} />
           <Styles.Margin />
           <Card content={this.contact()} />
-        </Styles.BottomContainer> */}
-        <img src={dashboard}></img>
+        </Styles.BottomContainer>
+        {/* <img src={dashboard}></img> */}
       </div>
     );
   }

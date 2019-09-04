@@ -1,9 +1,12 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { queryService } from 'services/API';
-import { Tag, Button, Icon, Card, Input, Row, Col, Radio } from 'antd';
+import { Tag, Button, Icon, Card, Input, Row, Col, Radio, Select } from 'antd';
 import * as moment from 'moment';
 import MasterForm from 'components/DetailForm/MasterForm';
+//import styles from './Service.less'
+import * as styles from './style';
+//import './Service.less'
 let data = [];
 
 @inject('translateStore')
@@ -13,39 +16,52 @@ export default class Service extends MasterForm {
         super(props);
         this.columns = [
           {
-              title: '',
-              key:'id',
-              dataIndex: 'id',
-              render: (text, record) =><Icon type="eye" onClick={()=> this.readrow(record)}/>
+            title: '',
+            key:'id',
+            dataIndex: 'id',
+            render: (text, record) =><Icon type="eye" onClick={()=> this.readRow(record)}/>
           },
           {
             title: 'NAME',
             dataIndex: 'name',
             key: 'name',
             validate : {required : true , max : 20},
-            render: (text, record) => <a onClick={()=> this.updaterow(record)}>{text}</a>,
+            render: (text, record) => <a onClick={()=> this.updateRow(record)}>{text}</a>,
           },
           {
             title: 'HOST',
             dataIndex: 'host',
             key: 'host',
-            type : 'switch',
+            //type : 'switch',
             render: (text, record) => <div>{record["host"]!==undefined ? record["host"].toString() : ""}</div>
           },
           {
             title: 'TAGS',
             dataIndex: 'tags',
             key: 'tags',
-            //dataset : [{value:"A", key:"10000"},{value:"B", key:"20000"}],
+            dataset : [{value:"A", key:"10000"},{value:"B", key:"20000"}],
             //type : "select",
             //default : "A",
             //validate : {required : true}
+            // editRender : (record, handleInputEvent, customAttr) =>{
+            //   return(
+            //   <Radio.Group className={styles.customRadio} onChange={handleInputEvent} {...customAttr} key={"Tag-"+record.name}>
+            //       <Radio.Button value={"A"}>10000</Radio.Button>
+            //       <Radio.Button value={"B"}>20000</Radio.Button>
+            //   </Radio.Group>
+            //   )
+            // }
             editRender : (record, handleInputEvent, customAttr) =>{
+              console.log(styles);
+              console.log(styles.customDropDown);
               return(
-              <Radio.Group onChange={handleInputEvent} {...customAttr}>
-                  <Radio.Button value={"A"}>10000</Radio.Button>
-                  <Radio.Button value={"B"}>20000</Radio.Button>
-              </Radio.Group>
+              <styles.MySelect onChange={handleInputEvent} {...customAttr}
+                mode="multiple"
+                style={{ width: 300 }}
+              >
+                <Select.Option value={"A"}>10000</Select.Option>
+                <Select.Option value={"B"}>20000</Select.Option>              
+              </styles.MySelect>
               )
             }
           },
@@ -63,7 +79,7 @@ export default class Service extends MasterForm {
             key: 'action',
             render: (text, record) => (
               <span>
-                  <Tag color="red" onClick = {()=>this.deleterow(record)}>
+                  <Tag color="red" onClick = {()=>this.deleteRow(record)}>
                   <Icon type="delete"/> DELETE
                   </Tag>
               </span>
@@ -114,7 +130,7 @@ export default class Service extends MasterForm {
         <div>
           <Row>
             <Col span={16}>
-              <Button type="primary" icon='plus' onClick={this.addrow}>ADD NEW SERVICE</Button>
+              <Button type="primary" icon='plus' onClick={this.addRow}>ADD NEW SERVICE</Button>
             </Col>
             <Col span={8}>
               <Search placeholder="Search NAME" onSearch={value => this.queryData(value)} enterButton />      
