@@ -226,34 +226,35 @@ P.s Remember to bind the onChange event "handleInputEvent" for model validation.
 ### Query
 Get the data from API or local and update the state.data with it.
 ```js
-	queryData = (value) =>{
-	    //Call Query(Http Get) API 
-        //let dt = data.filter(r=> r.name.indexOf(value) > -1);
-        this.setState({data : dt});
-    }
+queryData = (value) =>{
+	//Call Query(Http Get) API 
+    //let dt = data.filter(r=> r.name.indexOf(value) > -1);
+    this.setState({data : dt});
+}
 ```
 
 ### Create and Update
 Override the function name "handleOK". Besides, you can import confirm window if you want. 
 ```js
-	handleOK = (row) =>{
-       if(this.state.status === "add"){
-         //Call Add(http POST) API with model row
-       }
-       else{ //Update
-         //Call Update(http PUT) API with model row
-       }
-	   //refresh data
+handleOK = (row) =>{
+	if(this.state.status === "add"){
+		//Call Add(http POST) API with model row
+	}
+    else{ //Update
+        //Call Update(http PUT) API with model row
     }
+	//refresh data
+}
+
 ```
 
 ### Delete
 Override the function name "handleOK". Besides, you can import confirm window if you want. 
 ```js
-	deleterow = (row) =>{
-      //Call Delete(http DELETE) API with model row
-      //refresh data
-    }
+deleterow = (row) =>{
+	//Call Delete(http DELETE) API with model row
+    //refresh data
+}
 ```
 
 
