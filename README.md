@@ -48,14 +48,14 @@ export default class Service extends MasterForm {
               title: '',
               key:'id',
               dataIndex: 'id',
-              render: (text, record) =><Icon type="eye" onClick={()=> this.readrow(record)}/>
+              render: (text, record) =><Icon type="eye" onClick={()=> this.readRow(record)}/>
           },
           {
             title: 'NAME',
             dataIndex: 'name',
             key: 'name',
             validate : {required : true , max : 20},
-            render: (text, record) => <a onClick={()=> this.updaterow(record)}>{text}</a>,
+            render: (text, record) => <a onClick={()=> this.updateRow(record)}>{text}</a>,
           },
           {
             title: 'HOST',
@@ -85,7 +85,7 @@ export default class Service extends MasterForm {
             key: 'action',
             render: (text, record) => (
               <span>
-                  <Tag color="red" onClick = {()=>this.deleterow(record)}>
+                  <Tag color="red" onClick = {()=>this.deleteRow(record)}>
                   <Icon type="delete"/> DELETE
                   </Tag>
               </span>
@@ -109,7 +109,7 @@ render() {
 
 ### How to open the edit-form with Create/Edit/ReadOnly Mode
 - Create Mode
-#### Call the basic function in MasterForm named <font color="red">this.addrow</font>
+#### Call the basic function in MasterForm named <font color="red">this.addRow</font>
 ```js
 render() {
     const { Search } = Input;
@@ -119,7 +119,7 @@ render() {
         <div>
           <Row>
             <Col span={16}>
-              <Button type="primary" icon='plus' onClick={this.addrow}>ADD NEW SERVICE</Button>
+              <Button type="primary" icon='plus' onClick={this.addRow}>ADD NEW SERVICE</Button>
             </Col>
             <Col span={8}>
               <Search placeholder="Search NAME" onSearch={value => this.queryData(value)} enterButton />      
@@ -133,7 +133,7 @@ render() {
 ![Create](doc/p5.png )
 
 - Edit Mode
-#### Call the basic function in MasterForm named <font color=red>this.updaterow when you declare the column schema in constructor</font>
+#### Call the basic function in MasterForm named <font color=red>this.updateRow when you declare the column schema in constructor</font>
 ```js
 this.columns = [
           ...,
@@ -142,20 +142,20 @@ this.columns = [
             dataIndex: 'name',
             key: 'name',
             validate : {required : true , max : 20},
-            render: (text, record) => <a onClick={()=> this.updaterow(record)}>{text}</a>,
+            render: (text, record) => <a onClick={()=> this.updateRow(record)}>{text}</a>,
           },
 ```
 ![Edit](doc/p4.png )
 
 - ReadOnly Mode
-#### Call the basic function in MasterForm named <font color=red>this.readrow when you declare the column schema in constructor</font>
+#### Call the basic function in MasterForm named <font color=red>this.readRow when you declare the column schema in constructor</font>
 ```js
 this.columns = [
           {
               title: '',
               key:'id',
               dataIndex: 'id',
-              render: (text, record) =><Icon type="eye" onClick={()=> this.readrow(record)}/>
+              render: (text, record) =><Icon type="eye" onClick={()=> this.readRow(record)}/>
           },
 ```
 ![ReadOnly](doc/p6.png )
@@ -249,9 +249,9 @@ handleOK = (row) =>{
 ```
 
 ### Delete
-Override the function name "handleOK". Besides, you can import confirm window if you want. 
+Override the function name "deleteRow". Besides, you can import confirm window if you want. 
 ```js
-deleterow = (row) =>{
+deleteRow = (row) =>{
     //Call Delete(http DELETE) API with model row
     //refresh data
 }
