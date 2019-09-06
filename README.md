@@ -33,7 +33,7 @@ Step4: Enjoy your development!
 ```cmd
    npm install mr0s-boilerplate
 ```
-<p>Lookup the <a href="https://www.npmjs.com/package/mr0s-boilerplate" title="Hyper Link"></p>
+[Google](https://www.npmjs.com/package/mr0s-boilerplate "Link")
 
 ## Usage
 ### Import "MasterForm" and Inherit from "MasterForm"
@@ -41,7 +41,7 @@ Step4: Enjoy your development!
 import React from 'react';
 import { Tag, Button, Icon, Card, Input, Row, Col } from 'antd';
 import * as moment from 'moment';
-import MasterForm from 'components/DetailForm/MasterForm';
+import MasterForm from 'mr0s-boilerplate';
 ```
 ### Declare the columns in constuctor
 
