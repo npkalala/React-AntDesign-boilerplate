@@ -3,7 +3,8 @@ import { inject, observer } from 'mobx-react';
 import { queryService } from 'services/API';
 import { Tag, Button, Icon, Card, Input, Row, Col, Radio, Select } from 'antd';
 import * as moment from 'moment';
-import MasterForm from 'components/DetailForm/MasterForm';
+//import MasterForm from 'components/DetailForm/MasterForm';
+import {MasterForm} from 'mr0s-boilerplate'
 //import styles from './Service.less'
 import * as styles from './style';
 //import './Service.less'
@@ -51,19 +52,19 @@ export default class Service extends MasterForm {
             //   </Radio.Group>
             //   )
             // }
-            editRender : (record, handleInputEvent, customAttr) =>{
-              console.log(styles);
-              console.log(styles.customDropDown);
-              return(
-              <styles.MySelect onChange={handleInputEvent} {...customAttr}
-                mode="multiple"
-                style={{ width: 300 }}
-              >
-                <Select.Option value={"A"}>10000</Select.Option>
-                <Select.Option value={"B"}>20000</Select.Option>              
-              </styles.MySelect>
-              )
-            }
+            // editRender : (record, handleInputEvent, customAttr) =>{
+            //   console.log(styles);
+            //   console.log(styles.customDropDown);
+            //   return(
+            //   <styles.MySelect onChange={handleInputEvent} {...customAttr}
+            //     mode="multiple"
+            //     style={{ width: 300 }}
+            //   >
+            //     <Select.Option value={"A"}>10000</Select.Option>
+            //     <Select.Option value={"B"}>20000</Select.Option>              
+            //   </styles.MySelect>
+            //   )
+            // }
           },
           {
             title: 'CREATED',

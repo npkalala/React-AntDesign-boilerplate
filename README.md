@@ -29,6 +29,12 @@ npm run dev
 
 Step4: Enjoy your development!
 
+## npm install
+```cmd
+   npm install mr0s-boilerplate
+```
+<p>Lookup the <a href="https://www.npmjs.com/package/mr0s-boilerplate" title="Hyper Link"></p>
+
 ## Usage
 ### Import "MasterForm" and Inherit from "MasterForm"
 ```js
